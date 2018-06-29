@@ -79,6 +79,13 @@ public class Main {
             .executor(new Reload())
             .build();
 
+    CommandSpec giveshinytoken = CommandSpec.builder()
+            .description(Text.of("Gives a player a shiny token!"))
+            .arguments(GenericArguments.remainingJoinedStrings(Text.of("player")))
+            .permission("pdrewards.admin.gst")
+            .executor(new GiveShinyToken())
+            .build();
+    
     CommandSpec getshinytoken = CommandSpec.builder()
             .description(Text.of("Get a shiny token!"))
             .permission("pdrewards.admin.gst")
@@ -107,6 +114,7 @@ public class Main {
             .permission("pdrewards.admin")
             .child(reload, "rl", "reload")
             .child(getshinytoken, "gst", "gettoken", "getshinytoken")
+            .child(giveshinytoken, "givetoken", "giveshinytoken")
             .executor(new PokedexAdmin())
             .build();
 

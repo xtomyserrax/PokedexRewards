@@ -18,7 +18,6 @@ buildscript {
 
 ext.spongeApiVersion = "${project.spongeAPIVersion}"
 
-
 apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: "org.spongepowered.plugin"
 
@@ -39,14 +38,27 @@ minecraft {
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
+repositories {
+    mavenCentral()
+    maven {
+        name = 'sponge'
+        url = 'https://repo.spongepowered.org/maven'
+    }
+    ivy {
+        url "http://download.nodecdn.net/containers/reforged/server/release"
+        layout "pattern", {
+            artifact "[organisation]/[revision]/[artifact].[ext]"
+        }
+    }
+}
+
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
 dependencies {
     compile ("org.spongepowered:spongeapi:${project.spongeApiVersion}")
-
-    compile fileTree(dir: 'libs', include: '*.jar')
+    deobfProvided ':Pixelmon-1.12.2-6.3.1-server:6.3.1'
 }
 
 processResources {
