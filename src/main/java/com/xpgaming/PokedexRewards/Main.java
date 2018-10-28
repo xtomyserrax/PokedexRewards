@@ -81,7 +81,7 @@ public class Main {
 
     CommandSpec giveshinytoken = CommandSpec.builder()
             .description(Text.of("Gives a player a shiny token!"))
-            .arguments(GenericArguments.remainingJoinedStrings(Text.of("player")))
+            .arguments(GenericArguments.onlyOne(GenericArguments.player(Text.of("player"))))
             .permission("pdrewards.admin.gst")
             .executor(new GiveShinyToken())
             .build();
