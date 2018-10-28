@@ -58,7 +58,7 @@ tasks.withType(JavaCompile) {
 
 dependencies {
     compile ("org.spongepowered:spongeapi:${project.spongeApiVersion}")
-    deobfProvided ':Pixelmon-1.12.2-6.3.1-server:6.3.1'
+    deobfProvided ':Pixelmon-1.12.2-6.3.4-server:6.3.4'
 }
 
 processResources {
