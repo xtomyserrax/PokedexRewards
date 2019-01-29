@@ -1,10 +1,9 @@
 package com.xpgaming.PokedexRewards;
 
-import com.pixelmonmod.pixelmon.storage.NbtKeys;
-import com.pixelmonmod.pixelmon.storage.PixelmonStorage;
-import com.pixelmonmod.pixelmon.storage.PlayerStorage;
+import com.pixelmonmod.pixelmon.Pixelmon;
+import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
+import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -36,22 +35,21 @@ public class Convert implements CommandExecutor {
                 }
                 if(holdingAShinyToken) {
                     EntityPlayerMP entity = (EntityPlayerMP) src;
-                    Optional<PlayerStorage> optstorage = PixelmonStorage.pokeBallManager.getPlayerStorage(entity);
+                    Optional<PlayerPartyStorage> optstorage = Optional.ofNullable(Pixelmon.storageManager.getParty(entity));
                     if (optstorage.isPresent()) {
-                        PlayerStorage storage = (PlayerStorage) optstorage.get();
-                        NBTTagCompound nbt = storage.partyPokemon[slot - 1];
-                        if(nbt == null) {
+                        PlayerPartyStorage storage = optstorage.get();
+                        Pokemon pokemon = storage.get(slot - 1);
+                        if(pokemon == null) {
                             src.sendMessage(Text.of("\u00A7f[\u00A7cPokeDex\u00A7f] \u00A7cThere's not a valid Pokémon in slot "+slot+"!"));
                         } else {
-                            int isShiny = nbt.getInteger(NbtKeys.IS_SHINY);
-                            if(isShiny == 1) {
+                            if(pokemon.isShiny()) {
                                 src.sendMessage(Text.of("\u00A7f[\u00A7cPokeDex\u00A7f] \u00A7cThat Pokémon is already shiny!"));
                             } else {
-                                nbt.setInteger(NbtKeys.IS_SHINY, 1);
-                                if(nbt.getBoolean(NbtKeys.IS_EGG))
+                                pokemon.setShiny(true);
+                                if(pokemon.isEgg())
                                     src.sendMessage(Text.of("\u00A7f[\u00A7bPokeDex\u00A7f] \u00A7bSuccessfully converted! It will hatch as a shiny!"));
                                 else src.sendMessage(Text.of("\u00A7f[\u00A7bPokeDex\u00A7f] \u00A7bSuccessfully converted that Pokémon to a shiny!"));
-                                storage.sendUpdatedList();
+                                //storage.sendUpdatedList();
                                 if(itemInHand.isPresent()) {
                                     int amount = itemInHand.get().getQuantity();
                                     if(amount == 1) {

@@ -1,9 +1,10 @@
 package com.xpgaming.PokedexRewards;
 
-import com.pixelmonmod.pixelmon.enums.EnumPokemon;
+import com.pixelmonmod.pixelmon.Pixelmon;
+import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.pokedex.Pokedex;
-import com.pixelmonmod.pixelmon.storage.PixelmonStorage;
-import com.pixelmonmod.pixelmon.storage.PlayerStorage;
+import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
+
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -24,12 +25,12 @@ public class Remaining implements CommandExecutor {
         if(src instanceof Player) {
             Player player = (Player) src;
             EntityPlayerMP entity = (EntityPlayerMP) src;
-            Optional<PlayerStorage> optstorage = PixelmonStorage.pokeBallManager.getPlayerStorage(entity);
+            Optional<PlayerPartyStorage> optstorage = Optional.ofNullable(Pixelmon.storageManager.getParty(entity));
             double percent = Utils.getInstance().calcPercent((EntityPlayerMP) player);
             if(optstorage.isPresent()) {
                 if (percent < 100) {
                     List<Text> contents = new ArrayList<>();
-                    for (EnumPokemon e : EnumPokemon.values()) {
+                    for (EnumSpecies e : EnumSpecies.values()) {
                         if (e.toString().contentEquals("PorygonZ")) {
                             String name = "Porygon-Z";
                             int id = Pokedex.nameToID(name);
@@ -45,7 +46,7 @@ public class Remaining implements CommandExecutor {
                         } else {
                             int id = Pokedex.nameToID(e.toString());
                             if (!optstorage.get().pokedex.hasCaught(id)) {
-                                if (EnumPokemon.legendaries.contains(e.toString())) {
+                                if (EnumSpecies.legendaries.contains(e.toString())) {
                                     contents.add(Text.of("\u00A7e" + e.toString()));
                                 } else contents.add(Text.of("\u00A76" + e.toString()));
                             }

@@ -1,9 +1,10 @@
 package com.xpgaming.PokedexRewards;
 
 import com.google.common.collect.Lists;
-import com.pixelmonmod.pixelmon.enums.EnumPokemon;
-import com.pixelmonmod.pixelmon.storage.PixelmonStorage;
-import com.pixelmonmod.pixelmon.storage.PlayerStorage;
+import com.pixelmonmod.pixelmon.Pixelmon;
+import com.pixelmonmod.pixelmon.enums.EnumSpecies;
+import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
+
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
@@ -70,10 +71,10 @@ public class Utils {
     }
 
     public double calcPercent(EntityPlayerMP entity) {
-        Optional<PlayerStorage> optstorage = PixelmonStorage.pokeBallManager.getPlayerStorage(entity);
+        Optional<PlayerPartyStorage> optstorage = Optional.ofNullable(Pixelmon.storageManager.getParty(entity));
         if(optstorage.isPresent()) {
-            int caught = ((PlayerStorage) optstorage.get()).pokedex.countCaught();
-            double percent = (double) caught / (double) EnumPokemon.values().length * 100.00;
+            int caught = optstorage.get().pokedex.countCaught();
+            double percent = (double) caught / (double) EnumSpecies.values().length * 100.00;
             return percent;
         }
         return 0.0;

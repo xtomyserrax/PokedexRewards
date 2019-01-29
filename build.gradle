@@ -21,7 +21,7 @@ ext.spongeApiVersion = "${project.spongeAPIVersion}"
 apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: "org.spongepowered.plugin"
 
-version = "0.7-MC${project.minecraftVersion}-F${project.forgeBuild}-S${project.spongeAPIVersion.split("-")[0]}"
+version = "0.8-MC${project.minecraftVersion}-F${project.forgeBuild}-S${project.spongeAPIVersion.split("-")[0]}"
 group = modGroup
 archivesBaseName = modBaseName
 
@@ -45,7 +45,8 @@ repositories {
         url = 'https://repo.spongepowered.org/maven'
     }
     ivy {
-        url "http://download.nodecdn.net/containers/reforged/server/release"
+        url "https://hexagonmc.eu/tmp"
+        //url "http://download.nodecdn.net/containers/reforged/server/release"
         layout "pattern", {
             artifact "[organisation]/[revision]/[artifact].[ext]"
         }
@@ -58,7 +59,7 @@ tasks.withType(JavaCompile) {
 
 dependencies {
     compile ("org.spongepowered:spongeapi:${project.spongeApiVersion}")
-    deobfProvided ':Pixelmon-1.12.2-6.3.4-server:6.3.4'
+    deobfProvided ":Pixelmon-1.12.2-7.0.0-dev2317:"
 }
 
 processResources {

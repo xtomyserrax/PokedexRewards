@@ -24,7 +24,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-@Plugin(id = Main.id, name = Main.name, version = "0.7", dependencies = {@Dependency(id = "pixelmon")})
+@Plugin(id = Main.id, name = Main.name, version = "0.8", dependencies = {@Dependency(id = "pixelmon")})
 public class Main {
     private static Main instance = new Main();
     public static Main getInstance() {
