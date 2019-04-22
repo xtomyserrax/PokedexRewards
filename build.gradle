@@ -21,9 +21,18 @@ ext.spongeApiVersion = "${project.spongeAPIVersion}"
 apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: "org.spongepowered.plugin"
 
-version = "0.8-MC${project.minecraftVersion}-F${project.forgeBuild}-S${project.spongeAPIVersion.split("-")[0]}"
+version = "0.8.1-RC1"
 group = modGroup
 archivesBaseName = modBaseName
+
+// Enables use of the section character (§) instead of long tags. Thanks, Hiroku!
+//noinspection GroovyAssignabilityCheck
+tasks.withType(JavaCompile)
+{
+    task ->
+    task.options.encoding = 'UTF-8'
+    task.options.fork = true
+}
 
 minecraft {
     version = project.forgeVersion
@@ -57,9 +66,14 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-dependencies {
-    compile ("org.spongepowered:spongeapi:${project.spongeApiVersion}")
-    deobfProvided ":Pixelmon-1.12.2-7.0.0-dev2317:"
+// Allows Sponge and Pixelmon stuff to load up correctly.
+dependencies
+{
+    // Grab and include Sponge.
+    compile 'org.spongepowered:spongeapi:7.1.0'
+
+    // Automatically grabs libraries from the libs folder and adds them to the project. Thanks, CraftSteamG!
+    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 processResources {

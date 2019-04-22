@@ -2,9 +2,7 @@ package com.xpgaming.PokedexRewards;
 
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
-import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
 import net.minecraft.entity.player.EntityPlayerMP;
-import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
@@ -18,7 +16,8 @@ import org.spongepowered.api.text.Text;
 import java.util.Optional;
 
 public class Convert implements CommandExecutor {
-    public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+    @SuppressWarnings("NullableProblems")
+    public CommandResult execute(CommandSource src, CommandContext args) {
         if(src instanceof Player) {
             int slot = args.<Integer>getOne("slot").get();
             boolean holdingAShinyToken = false;
@@ -34,43 +33,38 @@ public class Convert implements CommandExecutor {
                     }
                 }
                 if(holdingAShinyToken) {
-                    EntityPlayerMP entity = (EntityPlayerMP) src;
-                    Optional<PlayerPartyStorage> optstorage = Optional.ofNullable(Pixelmon.storageManager.getParty(entity));
-                    if (optstorage.isPresent()) {
-                        PlayerPartyStorage storage = optstorage.get();
-                        Pokemon pokemon = storage.get(slot - 1);
-                        if(pokemon == null) {
-                            src.sendMessage(Text.of("\u00A7f[\u00A7cPokeDex\u00A7f] \u00A7cThere's not a valid Pokémon in slot "+slot+"!"));
+                    Pokemon pokemon = Pixelmon.storageManager.getParty((EntityPlayerMP) src).get(slot - 1);
+                    if(pokemon == null) {
+                        src.sendMessage(Text.of("§f[§cPokédex§f] §cThere's not a valid Pokémon in slot "+slot+"!"));
+                    } else {
+                        if(pokemon.isShiny()) {
+                            src.sendMessage(Text.of("§f[§cPokédex§f] §cThat Pokémon is already shiny!"));
                         } else {
-                            if(pokemon.isShiny()) {
-                                src.sendMessage(Text.of("\u00A7f[\u00A7cPokeDex\u00A7f] \u00A7cThat Pokémon is already shiny!"));
-                            } else {
-                                pokemon.setShiny(true);
-                                if(pokemon.isEgg())
-                                    src.sendMessage(Text.of("\u00A7f[\u00A7bPokeDex\u00A7f] \u00A7bSuccessfully converted! It will hatch as a shiny!"));
-                                else src.sendMessage(Text.of("\u00A7f[\u00A7bPokeDex\u00A7f] \u00A7bSuccessfully converted that Pokémon to a shiny!"));
-                                //storage.sendUpdatedList();
-                                if(itemInHand.isPresent()) {
-                                    int amount = itemInHand.get().getQuantity();
-                                    if(amount == 1) {
-                                        player.setItemInHand(HandTypes.MAIN_HAND, null);
-                                    } else {
-                                        itemInHand.get().setQuantity(amount-1);
-                                        player.setItemInHand(HandTypes.MAIN_HAND, itemInHand.get());
-                                    }
+                            pokemon.setShiny(true);
+                            if(pokemon.isEgg())
+                                src.sendMessage(Text.of("§f[§bPokédex§f] §bSuccessfully converted! It will hatch as a shiny!"));
+                            else src.sendMessage(Text.of("§f[§bPokédex§f] §bSuccessfully converted that Pokémon to a shiny!"));
+                            //storage.sendUpdatedList();
+                            if(itemInHand.isPresent()) {
+                                int amount = itemInHand.get().getQuantity();
+                                if(amount == 1) {
+                                    player.setItemInHand(HandTypes.MAIN_HAND, null);
+                                } else {
+                                    itemInHand.get().setQuantity(amount-1);
+                                    player.setItemInHand(HandTypes.MAIN_HAND, itemInHand.get());
                                 }
                             }
-                            }
+                        }
                     }
                 } else {
-                    src.sendMessage(Text.of("\u00A7f[\u00A7cPokeDex\u00A7f] \u00A7cYou need to be holding a shiny token!"));
+                    src.sendMessage(Text.of("§f[§cPokédex§f] §cYou need to be holding a shiny token!"));
                 }
             } else {
-                src.sendMessage(Text.of("\u00A7f[\u00A7cPokeDex\u00A7f] \u00A7cThat's not a valid slot! Try 1 - 6!"));
+                src.sendMessage(Text.of("§f[§cPokédex§f] §cThat's not a valid slot! Try 1 - 6!"));
             }
 
         } else {
-            src.sendMessage(Text.of("\u00A7f[\u00A7cPokeDex\u00A7f] \u00A7cYou need to be a player to run this command!"));
+            src.sendMessage(Text.of("§f[§cPokédex§f] §cYou need to be a player to run this command!"));
         }
         return CommandResult.success();
     }

@@ -24,14 +24,14 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-@Plugin(id = Main.id, name = Main.name, version = "0.8", dependencies = {@Dependency(id = "pixelmon")})
+@Plugin(id = Main.id, name = Main.name, version = "0.8.1", dependencies = {@Dependency(id = "pixelmon")})
 public class Main {
     private static Main instance = new Main();
     public static Main getInstance() {
         return instance;
     }
     public static final String id = "pokedexrewards";
-    public static final String name = "Pokedex Rewards";
+    public static final String name = "Pokédex Rewards";
     private static final Logger log = LoggerFactory.getLogger(name);
 
     private static EconomyService economyService;
@@ -50,13 +50,13 @@ public class Main {
             BigDecimal requiredAmount = BigDecimal.valueOf(amount);
             TransactionResult result = account.deposit(economyService.getDefaultCurrency(), requiredAmount, Sponge.getCauseStackManager().getCurrentCause());
             if (!(result.getResult() == ResultType.SUCCESS)) {
-                p.sendMessage(Text.of("\u00A7f[\u00A7cPokeDex\u00A7f] \u00A7cUnable to give money, something broke!"));
+                p.sendMessage(Text.of("§f[§cPokédex§f] §cUnable to give money, something broke!"));
             }
         }
     }
 
     CommandSpec claim = CommandSpec.builder()
-            .description(Text.of("Claim PokeDex rewards!"))
+            .description(Text.of("Claim Pokédex rewards!"))
             .permission("pdrewards.base.claim")
             .executor(new Claim())
             .build();
@@ -129,8 +129,8 @@ public class Main {
     public void onGameInitialization(GameInitializationEvent event) {
         Config.getInstance().setup(configFile, configLoader);
         UserData.getInstance().setup(dataFile, dataLoader);
-        consoleMsg("§f[§6PokeDex§f] §ePokeDex Rewards - Loaded v0.7!");
-        consoleMsg("§f[§6PokeDex§f] §eBy Xenoyia with help from MageFX and XpanD!");
+        consoleMsg("§f[§6Pokédex§f] §ePokédex Rewards - Loaded v0.8.1! (with temporary Meltan fix)");
+        consoleMsg("§f[§6Pokédex§f] §eBy Xenoyia with help from MageFX and XpanD!");
         Sponge.getCommandManager().register(this, pokedex, "pokedex", "pd", "dex");
         Sponge.getCommandManager().register(this, pokedexAdmin, "pokedexadmin", "pda", "dexadmin");
         Sponge.getServiceManager().provide(EconomyService.class);

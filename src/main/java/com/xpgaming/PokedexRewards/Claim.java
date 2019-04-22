@@ -4,7 +4,6 @@ import com.google.common.reflect.TypeToken;
 import net.minecraft.entity.player.EntityPlayerMP;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
@@ -15,7 +14,8 @@ import org.spongepowered.api.text.Text;
 
 // Adding a comment for versioning purposes. Trying to figure this out.
 public class Claim implements CommandExecutor {
-    public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+    @SuppressWarnings("NullableProblems")
+    public CommandResult execute(CommandSource src, CommandContext args) {
         if(src instanceof Player) {
             Player player = (Player) src;
             double percent = Utils.getInstance().calcPercent((EntityPlayerMP) player);
@@ -362,7 +362,7 @@ public class Claim implements CommandExecutor {
                     try {
                         numClaimed++;
                         EntityPlayerMP emp = (EntityPlayerMP) player;
-                        Sponge.getServer().getBroadcastChannel().send(Text.of("\u00A7f[\u00A7bPokeDex\u00A7f] \u00A7f"+player.getName()+" \u00A7bhas completed their Pokedex!"));
+                        Sponge.getServer().getBroadcastChannel().send(Text.of("§f[§bPokédex§f] §f"+player.getName()+" §bhas completed their Pokedex!"));
                         UserData.getInstance().getConfig().getNode("playerData", player.getUniqueId().toString(), "100").setValue(true);
                         UserData.getInstance().saveAndLoadConfig();
                         int numRewards = Config.getInstance().getConfig().getNode("rewards", "rewardfinal", "numberOfRewards").getInt();
@@ -392,21 +392,21 @@ public class Claim implements CommandExecutor {
                         }
                     }
                 } else {
-                    player.sendMessage(Text.of("\u00A7f[\u00A7bPokeDex\u00A7f] \u00A7bYou have nothing left to claim, good job!"));
+                    player.sendMessage(Text.of("§f[§bPokédex§f] §bYou have nothing left to claim, good job!"));
                 }
             }
 
             if(moneyClaimed > 0) {
-                player.sendMessage(Text.of("\u00A7f[\u00A76PokeDex\u00A7f] \u00A7e"+moneyClaimed+" \u00A76has been added to your account!"));
+                player.sendMessage(Text.of("§f[§6Pokédex§f] §e"+moneyClaimed+" §6has been added to your account!"));
             }
 
             if(numClaimed == 0) {
-                player.sendMessage(Text.of("\u00A7f[\u00A7cPokeDex\u00A7f] \u00A7cYou have nothing to claim right now!"));
+                player.sendMessage(Text.of("§f[§cPokédex§f] §cYou have nothing to claim right now!"));
             } else {
-                player.sendMessage(Text.of("\u00A7f[\u00A7bPokeDex\u00A7f] \u00A7bYou have claimed \u00A7f"+numClaimed+" \u00A7breward tiers!"));
+                player.sendMessage(Text.of("§f[§bPokédex§f] §bYou have claimed §f"+numClaimed+" §breward tiers!"));
             }
         } else {
-            src.sendMessage(Text.of("\u00A7f[\u00A7cPokeDex\u00A7f] \u00A7cYou need to be a player to run this command!"));
+            src.sendMessage(Text.of("§f[§cPokédex§f] §cYou need to be a player to run this command!"));
         }
         return CommandResult.success();
     }

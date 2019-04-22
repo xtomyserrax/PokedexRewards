@@ -1,6 +1,5 @@
 package com.xpgaming.PokedexRewards;
 
-import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
@@ -16,20 +15,24 @@ import java.text.DecimalFormat;
 import java.util.Optional;
 
 public class Count implements CommandExecutor {
-    public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+    @SuppressWarnings("NullableProblems")
+    public CommandResult execute(CommandSource src, CommandContext args) {
         if(src instanceof Player) {
             Player player = (Player) src;
             Optional<PlayerPartyStorage> optstorage = Optional.ofNullable(Pixelmon.storageManager.getParty(player.getUniqueId()));
             if(optstorage.isPresent()) {
                 int caught = (optstorage.get().pokedex.countCaught());
-                double percent = (double) caught / (double) EnumSpecies.values().length * 100.00;
+                int dexNum = EnumSpecies.values().length - 2; // Temp Meltan fix.
+                double percent = (double) caught / (double) dexNum * 100.00;
                 DecimalFormat df = new DecimalFormat();
                 df.setMaximumFractionDigits(2);
-                player.sendMessage(Text.of("\u00A7f[\u00A7bPokeDex\u00A7f] \u00A7bYou have caught \u00A7f"+caught+"\u00A7b/\u00A7f"+EnumSpecies.values().length+" \u00A7bPokémon! (\u00A7f"+df.format(percent)+"%\u00A7b)"));
+
+                player.sendMessage(Text.of("§f[§bPokédex§f] §bYou have caught §f"+caught+"§b/§f" +
+                        dexNum + " §bPokémon! (§f"+df.format(percent)+"%§b)"));
             }
 
         } else {
-            src.sendMessage(Text.of("\u00A7f[\u00A7cPokeDex\u00A7f] \u00A7cYou need to be a player to run this command!"));
+            src.sendMessage(Text.of("§f[§cPokédex§f] §cYou need to be a player to run this command!"));
         }
         return CommandResult.success();
     }

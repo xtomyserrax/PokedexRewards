@@ -9,18 +9,19 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
 public class PokedexAdmin implements CommandExecutor {
+    @SuppressWarnings("NullableProblems")
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         if(src instanceof Player) {
             Player player = (Player) src;
-            player.sendMessage(Text.of("\u00A7f[\u00A7bPokeDex Admin\u00A7f] \u00A7b\u00A7l-- COMMANDS --"));
+            player.sendMessage(Text.of("§f[§bPokédex Admin§f] §b§l-- COMMANDS --"));
             if(player.hasPermission("xpgaming.pokedex.admin")) {
-                player.sendMessage(Text.of("  \u00A77> \u00A7b/pokedex reload\u00A7f|\u00A7brl \u00A77- Reload config!"));
-                player.sendMessage(Text.of("  \u00A77> \u00A7b/pokedex getshinytoken\u00A7f|\u00A7bgst"));
+                player.sendMessage(Text.of("  §7> §b/pokedex reload§f|§brl §7- Reload config!"));
+                player.sendMessage(Text.of("  §7> §b/pokedex getshinytoken§f|§bgst"));
             }
         } else {
-            src.sendMessage(Text.of("\u00A7f[\u00A7bPokeDex Admin\u00A7f] \u00A7b\u00A7l-- COMMANDS --"));
-            src.sendMessage(Text.of("  \u00A77> \u00A7b/pokedex reload\u00A7f|\u00A7brl \u00A77- Reload config!"));
-            src.sendMessage(Text.of("  \u00A77> \u00A7b/pokedex getshinytoken\u00A7f|\u00A7bgst"));
+            src.sendMessage(Text.of("§f[§bPokédex Admin§f] §b§l-- COMMANDS --"));
+            src.sendMessage(Text.of("  §7> §b/pokedex reload§f|§brl §7- Reload config!"));
+            src.sendMessage(Text.of("  §7> §b/pokedex getshinytoken§f|§bgst"));
         }
         return CommandResult.success();
     }

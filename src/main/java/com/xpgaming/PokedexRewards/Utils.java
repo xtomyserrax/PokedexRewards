@@ -3,8 +3,6 @@ package com.xpgaming.PokedexRewards;
 import com.google.common.collect.Lists;
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
-import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
-
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
@@ -20,7 +18,6 @@ import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.world.World;
 
 import java.util.List;
-import java.util.Optional;
 
 public class Utils {
     private static Utils instance = new Utils();
@@ -71,13 +68,8 @@ public class Utils {
     }
 
     public double calcPercent(EntityPlayerMP entity) {
-        Optional<PlayerPartyStorage> optstorage = Optional.ofNullable(Pixelmon.storageManager.getParty(entity));
-        if(optstorage.isPresent()) {
-            int caught = optstorage.get().pokedex.countCaught();
-            double percent = (double) caught / (double) EnumSpecies.values().length * 100.00;
-            return percent;
-        }
-        return 0.0;
+        int caught = Pixelmon.storageManager.getParty(entity).pokedex.countCaught();
+        return (double) caught / ((double) EnumSpecies.values().length - 2) * 100.00; // Temp Meltan fix.
     }
 
     public boolean hasClaimed(Player p, String pct) {
