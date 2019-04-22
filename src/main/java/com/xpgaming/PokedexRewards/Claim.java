@@ -13,6 +13,7 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 
+// Adding a comment for versioning purposes. Trying to figure this out.
 public class Claim implements CommandExecutor {
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         if(src instanceof Player) {
