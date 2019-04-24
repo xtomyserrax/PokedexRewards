@@ -1,13 +1,16 @@
 This mapping 'stable_39' was designed for MC 1.12! Use at your own peril.This mapping 'stable_39' was designed for MC 1.12! Use at your own peril.
 
 :deobfCompileDummyTask
+:extractMcpMappings SKIPPED
+:deobfProvidedDeobfDepTask0 SKIPPED
+:deobfProvidedRemapDepSourcesTask1 SKIPPED
 :deobfProvidedDummyTask
 :sourceApiJava UP-TO-DATE
 :compileApiJava UP-TO-DATE
 :processApiResources UP-TO-DATE
 :apiClasses UP-TO-DATE
 :generateMetadata
-:sourceMainJava
+:sourceMainJava UP-TO-DATE
 :compileJavaNote: Reading extra plugin metadata from C:\Development\PokedexRewards\build\tmp\generateMetadata\mcmod.info
 C:\Development\PokedexRewards\build\sources\main\java\com\xpgaming\PokedexRewards\Main.java:27: warning: Missing plugin description
 @Plugin(id = Main.id, name = Main.name, version = "0.8.1", dependencies = {@Dependency(id = "pixelmon")})
@@ -17,7 +20,7 @@ Note: C:\Development\PokedexRewards\build\sources\main\java\com\xpgaming\Pokedex
 Note: Recompile with -Xlint:deprecation for details.
 1 warning
 
-:processResources UP-TO-DATE
+:processResources
 :classes
 :jar
 :sourceTestJava UP-TO-DATE
@@ -26,7 +29,6 @@ Note: Recompile with -Xlint:deprecation for details.
 :testClasses UP-TO-DATE
 :test UP-TO-DATE
 :extractMcpData SKIPPED
-:extractMcpMappings SKIPPED
 :getVersionJson
 :extractUserdev UP-TO-DATE
 :genSrgs SKIPPED
@@ -34,8 +36,7 @@ Note: Recompile with -Xlint:deprecation for details.
 :extractAnnotationsJar
 :extractRangemapReplacedMain
 C:\Development\PokedexRewards\build\sources\main\java
-:retromapReplacedMain
-remapping source...
+:retromapReplacedMain UP-TO-DATE
 :sourceJar
 :assemble
 :check UP-TO-DATE
@@ -43,4 +44,4 @@ remapping source...
 
 BUILD SUCCESSFUL
 
-Total time: 6.087 secs
+Total time: 6.887 secs

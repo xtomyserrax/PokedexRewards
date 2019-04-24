@@ -397,7 +397,7 @@ public class Claim implements CommandExecutor {
             }
 
             if(moneyClaimed > 0) {
-                player.sendMessage(Text.of("§f[§6Pokédex§f] §e"+moneyClaimed+" §6has been added to your account!"));
+                player.sendMessage(Text.of("§f[§6Pokédex§f] §e"+moneyClaimed+" §6coins have been added to your account!"));
             }
 
             if(numClaimed == 0) {

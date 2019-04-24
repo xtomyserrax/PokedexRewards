@@ -1,0 +1,5 @@
+0.8.1: (24/04/2019)
+* Changed the "# has been added to your account" message to show _what_ it gave you.
+* Fixed shiny tokens not working anymore.
+* Made "/pd remaining" sort remaining Pokémon by name and type. Legendaries are at the end.
+* Temporarily fixed unfinished Meltan/Melmetal additions in Pixelmon breaking 100% claims.
