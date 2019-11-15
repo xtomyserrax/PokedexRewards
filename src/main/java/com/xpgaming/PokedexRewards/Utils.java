@@ -69,7 +69,7 @@ public class Utils {
 
     public double calcPercent(EntityPlayerMP entity) {
         int caught = Pixelmon.storageManager.getParty(entity).pokedex.countCaught();
-        return (double) caught / ((double) EnumSpecies.values().length - 2) * 100.00; // Temp Meltan fix.
+        return (double) caught / ((double) EnumSpecies.values().length) * 100.00;
     }
 
     public boolean hasClaimed(Player p, String pct) {

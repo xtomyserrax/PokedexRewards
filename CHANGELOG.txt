@@ -1,3 +1,7 @@
+0.8.2: (16/11/2019)
+* Fixed the shown total being 807 instead of 809. (missing Meltan and Melmetal)
+* Fixed Meltan/Melmetal not being counted/shown by removing an old temporary fix.
+
 0.8.1: (24/04/2019)
 * Changed the "# has been added to your account" message to show _what_ it gave you.
 * Fixed shiny tokens not working anymore.

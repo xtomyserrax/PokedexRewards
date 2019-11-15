@@ -24,7 +24,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-@Plugin(id = Main.id, name = Main.name, version = "0.8.1", dependencies = {@Dependency(id = "pixelmon")})
+@Plugin(id = Main.id, name = Main.name, version = "0.8.2-t1", dependencies = {@Dependency(id = "pixelmon")})
 public class Main {
     private static Main instance = new Main();
     public static Main getInstance() {
@@ -129,7 +129,7 @@ public class Main {
     public void onGameInitialization(GameInitializationEvent event) {
         Config.getInstance().setup(configFile, configLoader);
         UserData.getInstance().setup(dataFile, dataLoader);
-        consoleMsg("§f[§6Pokédex§f] §ePokédex Rewards - Loaded v0.8.1! (with temporary Meltan fix)");
+        consoleMsg("§f[§6Pokédex§f] §ePokédex Rewards - Loaded v0.8.2!");
         consoleMsg("§f[§6Pokédex§f] §eBy Xenoyia with help from MageFX and XpanD!");
         Sponge.getCommandManager().register(this, pokedex, "pokedex", "pd", "dex");
         Sponge.getCommandManager().register(this, pokedexAdmin, "pokedexadmin", "pda", "dexadmin");

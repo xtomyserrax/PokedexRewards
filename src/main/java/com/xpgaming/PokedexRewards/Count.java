@@ -22,7 +22,7 @@ public class Count implements CommandExecutor {
             Optional<PlayerPartyStorage> optstorage = Optional.ofNullable(Pixelmon.storageManager.getParty(player.getUniqueId()));
             if(optstorage.isPresent()) {
                 int caught = (optstorage.get().pokedex.countCaught());
-                int dexNum = EnumSpecies.values().length - 2; // Temp Meltan fix.
+                int dexNum = EnumSpecies.values().length;
                 double percent = (double) caught / (double) dexNum * 100.00;
                 DecimalFormat df = new DecimalFormat();
                 df.setMaximumFractionDigits(2);

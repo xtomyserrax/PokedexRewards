@@ -33,24 +33,22 @@ public class Remaining implements CommandExecutor
                     for (EnumSpecies e : EnumSpecies.values())
                     {
                         baseName = e.toString();
-                        if (!baseName.matches("Meltan|Melmetal")) // Temp Meltan fix.
-                        {
-                            if (baseName.contentEquals("PorygonZ"))
-                                fixedName = "Porygon-Z";
-                            else if (baseName.contentEquals("Hooh"))
-                                fixedName = "Ho-Oh";
-                            else if (baseName.contains("_")) // Tapu fix.
-                                fixedName = baseName.replace('_', ' ');
-                            else
-                                fixedName = baseName;
 
-                            if (!pokedex.hasCaught(Pokedex.nameToID(baseName)))
-                            {
-                                if (EnumSpecies.legendaries.contains(baseName))
-                                    contents.add(Text.of("§e" + fixedName));
-                                else
-                                    contents.add(Text.of("§6" + fixedName));
-                            }
+                        if (baseName.contentEquals("PorygonZ"))
+                            fixedName = "Porygon-Z";
+                        else if (baseName.contentEquals("Hooh"))
+                            fixedName = "Ho-Oh";
+                        else if (baseName.contains("_")) // Tapu fix.
+                            fixedName = baseName.replace('_', ' ');
+                        else
+                            fixedName = baseName;
+
+                        if (!pokedex.hasCaught(Pokedex.nameToID(baseName)))
+                        {
+                            if (EnumSpecies.legendaries.contains(baseName))
+                                contents.add(Text.of("§e" + fixedName));
+                            else
+                                contents.add(Text.of("§6" + fixedName));
                         }
                     }
 
