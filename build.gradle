@@ -21,7 +21,7 @@ ext.spongeApiVersion = "${project.spongeAPIVersion}"
 apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: "org.spongepowered.plugin"
 
-version = "0.8.2-t1"
+version = "0.8.2-t2"
 group = modGroup
 archivesBaseName = modBaseName
 

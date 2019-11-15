@@ -28,27 +28,67 @@ public class Remaining implements CommandExecutor
                 {
                     List<Text> contents = new ArrayList<>();
                     Pokedex pokedex = Pixelmon.storageManager.getParty((EntityPlayerMP) src).pokedex;
-                    String baseName, fixedName;
+                    String baseName, shownName;
 
                     for (EnumSpecies e : EnumSpecies.values())
                     {
                         baseName = e.toString();
 
-                        if (baseName.contentEquals("PorygonZ"))
-                            fixedName = "Porygon-Z";
-                        else if (baseName.contentEquals("Hooh"))
-                            fixedName = "Ho-Oh";
-                        else if (baseName.contains("_")) // Tapu fix.
-                            fixedName = baseName.replace('_', ' ');
-                        else
-                            fixedName = baseName;
+                        if (baseName.contains("Tapu")) // Tapu fix.
+                        {
+                            System.out.println("Name: " + baseName);
+
+                            // Remove the underscore from the base. EnumSpecies' "legendaries" list uses names without it.
+                            baseName = baseName.substring(0, 4) + "" + baseName.substring(5);
+
+                            // Prettify the shown name by replacing the underscore with a space.
+                            shownName = baseName.substring(0, 4) + ' ' + baseName.substring(4);
+
+                            System.out.println("Name: " + baseName);
+                        }
+                        else switch (baseName)
+                        {
+                            // Fix names that are different internally for technical reasons.
+                            case "Nidoranfemale":
+                                shownName = "Nidoran ♀"; break;
+                            case "Nidoranmale":
+                                shownName = "Nidoran ♂"; break;
+                            case "Farfetchd":
+                                shownName = "Farfetch'd"; break;
+                            case "MrMime":
+                                shownName = "Mr. Mime"; break;
+                            case "Hooh":
+                                shownName = "Ho-Oh"; break;
+                            case "MimeJr":
+                                shownName = "Mime Jr."; break;
+                            case "PorygonZ":
+                                shownName = "Porygon-Z"; break;
+                            case "Flabebe":
+                                shownName = "Flabébé"; break;
+                            case "TypeNull":
+                                shownName = "Type: Null"; break;
+                            case "Jangmoo":
+                                shownName = "Jangmo-o";
+
+                            System.out.println("Name: " + baseName); break;
+                            case "Hakamoo":
+                                shownName = "Hakamo-o";
+
+                            System.out.println("Name: " + baseName); break;
+                            case "Kommoo":
+                                shownName = "Kommo-o";
+
+                            System.out.println("Name: " + baseName); break;
+                            default:
+                                shownName = baseName;
+                        }
 
                         if (!pokedex.hasCaught(Pokedex.nameToID(baseName)))
                         {
-                            if (EnumSpecies.legendaries.contains(baseName))
-                                contents.add(Text.of("§e" + fixedName));
+                            if (EnumSpecies.legendaries.contains(baseName) || EnumSpecies.ultrabeasts.contains(baseName))
+                                contents.add(Text.of("§e" + shownName));
                             else
-                                contents.add(Text.of("§6" + fixedName));
+                                contents.add(Text.of("§6" + shownName));
                         }
                     }
 
