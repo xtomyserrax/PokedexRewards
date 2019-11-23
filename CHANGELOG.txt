@@ -1,4 +1,4 @@
-0.8.2: (16/11/2019)
+0.8.2: (24/11/2019)
 * Fixed the shown total being 807 instead of 809. (missing Meltan and Melmetal)
 * Fixed Meltan/Melmetal not being counted/shown. (removed the old temporary fix)
 * Fixed several legendaries not showing as such in "/pd remaining".

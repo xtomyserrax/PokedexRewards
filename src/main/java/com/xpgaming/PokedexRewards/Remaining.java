@@ -41,7 +41,7 @@ public class Remaining implements CommandExecutor
                             // Remove the underscore from the base. EnumSpecies' "legendaries" list uses names without it.
                             baseName = baseName.substring(0, 4) + "" + baseName.substring(5);
 
-                            // Prettify the shown name by replacing the underscore with a space.
+                            // Prettify the shown name by inserting a space where the underscore used to be.
                             shownName = baseName.substring(0, 4) + ' ' + baseName.substring(4);
 
                             System.out.println("Name: " + baseName);
